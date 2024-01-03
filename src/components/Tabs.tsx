@@ -10,12 +10,14 @@ import { addCircle, cameraOutline, list } from 'ionicons/icons';
 
 import Feed from './Feed';
 import Create from './Create';
+import FeedItem from './FeedItem';
 
 const Tabs = () => {
   return (
     <IonTabs>
       <IonRouterOutlet>
-        <Route path="/feed" render={() => <Feed />} />
+        <Route exact path="/feed" render={() => <Feed />} />
+        <Route path="/feed/:id" render={() => <FeedItem />} />
         <Route path="/create" render={() => <Create />} />
         <Route path="/" render={() => <Redirect to="/feed" />} exact />
       </IonRouterOutlet>
