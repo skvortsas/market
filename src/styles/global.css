@@ -1,9 +1,7 @@
-:root {
-  --safe-area-top: env(safe-area-inset-top);
-  --safe-area-bottom: env(safe-area-inset-bottom, 0);
-  --safe-area-left: env(safe-area-inset-left, 0);
-  --safe-area-right: env(safe-area-inset-right, 0);
-}
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 body {
   overflow: hidden;
   height: 100vh;

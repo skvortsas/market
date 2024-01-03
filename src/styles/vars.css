@@ -76,7 +76,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-tint: #f5f6f9;
 
   --ion-safe-area-bottom: 22px;
-  --ion-safe-area-top: 32px;
+  --ion-safe-area-top: 40px;
 }
 
 @media (prefers-color-scheme: dark) {

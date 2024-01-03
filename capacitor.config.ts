@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'market',
   webDir: 'out',
   server: {
-    url: 'http://192.168.0.101:3000',
+    url: 'http://10.0.0.12:3000',
     cleartext: true,
   }
 };

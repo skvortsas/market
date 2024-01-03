@@ -8,7 +8,8 @@
     "project": "./tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "code": 92
   },
   "plugins": ["@ionic"],
   "extends": ["plugin:@ionic/recommended"]
