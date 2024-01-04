@@ -16,6 +16,7 @@ import { FEED_STORAGE } from '@/utils/variables';
 import { usePhotoGallery, UserPhoto } from '@/hooks/usePhotoGallery';
 import { trash, close, images } from 'ionicons/icons';
 import { Preferences } from '@capacitor/preferences';
+import { fetchRandomUUID } from '@/utils/fetch/feed';
 
 const Create = () => {
   const [photoToDelete, setPhotoToDelete] = useState<UserPhoto>();
@@ -35,7 +36,7 @@ const Create = () => {
     const price = data.get('price');
     // Generating id coz we can have the same name, description and price
     // so we can't use it as an id
-    const uid = crypto.randomUUID();
+    const uid = await fetchRandomUUID();
     const { value } = await Preferences.get({ key: FEED_STORAGE });
     const existingFeed = value ? JSON.parse(value) : [];
     // Better destruct array here than sort it on feed page
