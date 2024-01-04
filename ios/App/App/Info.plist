@@ -8,6 +8,8 @@
     <string>App requires access to photo library</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>App requires access to photo library</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>To allow camera access for barcode scanning</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

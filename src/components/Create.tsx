@@ -3,17 +3,15 @@ import {
   IonContent,
   IonPage,
   IonActionSheet,
-  // IonCard,
   IonInput,
-  // IonList,
   IonItem,
   // IonImg,
   IonIcon,
   IonButton,
-  // IonText,
-  // IonCardTitle,
-  IonLabel, IonTextarea
+  IonLabel,
+  IonTextarea
 } from '@ionic/react';
+import { useHistory } from 'react-router';
 import { FEED_STORAGE } from '@/utils/variables';
 import { usePhotoGallery, UserPhoto } from '@/hooks/usePhotoGallery';
 import { trash, close, images } from 'ionicons/icons';
@@ -27,6 +25,7 @@ const Create = () => {
     deletePicture,
     pickPictures,
   } = usePhotoGallery();
+  const { push } = useHistory();
 
   const createCard = async (event: FormEvent<Element>) => {
     event.preventDefault();
@@ -34,13 +33,27 @@ const Create = () => {
     const name = data.get('name');
     const description = data.get('description');
     const price = data.get('price');
+    // Generating id coz we can have the same name, description and price
+    // so we can't use it as an id
+    const uid = crypto.randomUUID();
     const { value } = await Preferences.get({ key: FEED_STORAGE });
     const existingFeed = value ? JSON.parse(value) : [];
-    existingFeed.push({ name, description, price });
-    Preferences.set({
+    // Better destruct array here than sort it on feed page
+    // but if we would have filtering or any other types of sorting
+    // I wouldn't bother do it here
+    await Preferences.set({
       key: FEED_STORAGE,
-      value: JSON.stringify(existingFeed),
+      value: JSON.stringify([
+        {
+          name,
+          description,
+          price,
+          id: uid,
+        },
+        ...existingFeed
+      ]),
     });
+    push(`/feed/${uid}`);
   };
 
   return (
@@ -55,6 +68,7 @@ const Create = () => {
               label="Name:"
               labelPlacement="floating"
               name="name"
+              required
             />
           </IonItem>
           <IonButton onClick={pickPictures}>
@@ -75,6 +89,7 @@ const Create = () => {
               labelPlacement="floating"
               type="number"
               fill="outline"
+              required
             />
           </IonItem>
           <IonButton type="submit">

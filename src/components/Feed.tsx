@@ -43,7 +43,7 @@ const Feed = () => {
         </IonText>
         <IonItemGroup>
           {
-            feed.map((feedItem: any, index: number) => <IonItem key={index} routerLink={`/feed/${index}`}>
+            feed.map((feedItem: any) => <IonItem key={feedItem.id} routerLink={`/feed/${feedItem.id}`}>
               <div>name: {feedItem.name}</div>
               <div>price: {feedItem.price}</div>
               <div>description: {feedItem.description}</div>
