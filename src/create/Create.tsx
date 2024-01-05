@@ -82,11 +82,9 @@ const Create = () => {
             <IonGrid>
               <IonRow>
                 {
-                  pictures.map((picture) => (
-                    <IonCol size="3" key={picture.webviewPath}>
-                      <IonImg src={picture.webviewPath} onClick={() => setPhotoToDelete(picture)} />
-                    </IonCol>
-                  ))
+                  pictures.map((picture) => <IonCol size="3" key={picture.webviewPath}>
+                    <IonImg src={picture.webviewPath} onClick={() => setPhotoToDelete(picture)} />
+                  </IonCol>)
                 }
               </IonRow>
             </IonGrid>

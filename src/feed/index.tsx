@@ -24,7 +24,9 @@ const Index = () => {
 
     if (!isPlatform('hybrid')) {
       for (const feedItem of feed) {
-        await readCoverForFeedItem(feedItem);
+        if (feedItem.images.length) {
+          feedItem.images[0] = await readCoverForFeedItem(feedItem);
+        }
       }
     }
 
@@ -55,11 +57,9 @@ const Index = () => {
         <IonGrid>
           <IonRow>
             {
-              feed.map((feedItem: IFeedItem) => (
-                <IonCol key={feedItem.id} size="12" sizeMd="6" sizeLg="3">
-                  <FeedCard {...feedItem} />
-                </IonCol>
-              ))
+              feed.map((feedItem: IFeedItem) => <IonCol key={feedItem.id} size="12" sizeMd="6" sizeLg="3">
+                <FeedCard {...feedItem} />
+              </IonCol>)
             }
           </IonRow>
         </IonGrid>

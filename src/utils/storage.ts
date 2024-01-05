@@ -14,23 +14,21 @@ export const getFeedItemById = async (feedItemID: string): Promise<IFeedItem | u
   return desiredFeedItem;
 };
 
-const readImage = async (image?: UserPhoto) => {
-  if (image) {
-    const file = await Filesystem.readFile({
-      path: image.filepath,
-      directory: Directory.Data,
-    });
-    image.webviewPath = `data:image/jpeg;base64,${file.data}`;
-  }
+const readImage = async (image: UserPhoto): Promise<UserPhoto> => {
+  const imageCopy: UserPhoto = { ...image };
+  const file = await Filesystem.readFile({
+    path: imageCopy.filepath,
+    directory: Directory.Data,
+  });
+  imageCopy.webviewPath = `data:image/jpeg;base64,${file.data}`;
+  return imageCopy;
 };
 
 export const readCoverForFeedItem = async (feedItem: IFeedItem) => {
-  const image = feedItem.images[0];
-  await readImage(image);
+  return readImage(feedItem.images[0]);
 };
 
 export const readAllImagesForFeedItem = async (feedItem: IFeedItem) => {
-  for (const image of feedItem.images) {
-    await readImage(image);
-  }
+  const imagesPromises = feedItem.images.map((image) => readImage(image));
+  return Promise.all(imagesPromises);
 };

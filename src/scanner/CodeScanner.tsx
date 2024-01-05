@@ -24,7 +24,7 @@ const CodeScanner = () => {
       BarcodeScanner.hideBackground().then(() => {
         // So I can access navigation
         document.querySelector('body')!.classList.add('scanner-active');
-      })
+      });
       const result = await BarcodeScanner.startScan({ targetedFormats: [SupportedFormat.QR_CODE] });
       if (result.hasContent) {
         stopScan();
@@ -103,17 +103,17 @@ const CodeScanner = () => {
 
   useIonViewDidEnter(() => {
     startScan()
-    .catch((error) => console.log('error: ', error));
+      .catch((error) => console.log('error: ', error));
 
     return () => {
       stopScan();
       push('/feed');
-    }
+    };
   }, []);
 
   useIonViewWillLeave(() => {
     stopScan();
-  })
+  });
 
   return (
     <IonPage className="scanner-ui">
@@ -127,7 +127,7 @@ const CodeScanner = () => {
       <IonContent>
       </IonContent>
     </IonPage>
-  )
+  );
 };
 
 export default CodeScanner;

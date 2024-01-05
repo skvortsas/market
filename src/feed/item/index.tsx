@@ -7,8 +7,6 @@ import {
 } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Preferences } from '@capacitor/preferences';
-import { Directory, Filesystem } from '@capacitor/filesystem';
 
 import ItemContent from './ItemContent';
 
@@ -22,7 +20,7 @@ const Index = () => {
   const getFeedItem = async () => {
     const feedItem = await getFeedItemById(id);
     if (feedItem) {
-      await readAllImagesForFeedItem(feedItem);
+      feedItem.images = await readAllImagesForFeedItem(feedItem);
       return feedItem;
     }
 

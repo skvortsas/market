@@ -6,7 +6,7 @@ import {
 } from '@ionic/react';
 import QRCode from 'react-qr-code';
 
-const QRAccordion = ({ qrValue } : { qrValue: string }) => {
+const QRAccordion = ({ qrValue } : { qrValue: string; }) => {
   return (
     <IonAccordionGroup>
       <IonAccordion value="Show QR code">

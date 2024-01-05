@@ -12,5 +12,8 @@
     "code": 92
   },
   "plugins": ["@ionic"],
-  "extends": ["plugin:@ionic/recommended"]
+  "extends": ["plugin:@ionic/recommended"],
+  "rules": {
+    "no-undef": "off"
+  }
 }
