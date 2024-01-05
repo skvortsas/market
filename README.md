@@ -8,7 +8,7 @@ Change url on the 8th line of `capacitor.config.ts` file for your local IP addre
  yarn #to install dependencies
  npx cap sync #to install dependencies for ios and android devices
 ```
----
+
 ## Run application
 
 ```bash
@@ -21,7 +21,7 @@ Change url on the 8th line of `capacitor.config.ts` file for your local IP addre
 Now you can open the application in browser of your laptop and in a device emulator of your choice.
 You can also open the application with your mobile browser by putting your local address from
 the 8th line of `capacitor.config.ts`.
----
+
 ## Notes
 
 feed/[item]/page.tsx was not included into final release because I couldn't use filesystem
