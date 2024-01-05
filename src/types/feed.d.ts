@@ -4,11 +4,12 @@ declare global {
     name: string;
     description?: string;
     price: number;
-    images: Array<string>;
+    images: Array<UserPhoto>;
   }
 
-  interface IFeed {
-    items: Array<IFeedItem>;
+  interface UserPhoto {
+    filepath: string;
+    webviewPath?: string;
   }
 }
 

@@ -5,24 +5,29 @@ import {
   IonActionSheet,
   IonInput,
   IonItem,
-  // IonImg,
+  IonImg,
   IonIcon,
   IonButton,
   IonLabel,
-  IonTextarea
+  IonTextarea,
+  IonRow,
+  IonGrid,
+  IonCol
 } from '@ionic/react';
 import { useHistory } from 'react-router';
 import { FEED_STORAGE } from '@/utils/variables';
-import { usePhotoGallery, UserPhoto } from '@/hooks/usePhotoGallery';
+import { usePhotoGallery } from '@/hooks/usePhotoGallery';
 import { trash, close, images } from 'ionicons/icons';
 import { Preferences } from '@capacitor/preferences';
 import { fetchRandomUUID } from '@/utils/fetch/feed';
 
 const Create = () => {
   const [photoToDelete, setPhotoToDelete] = useState<UserPhoto>();
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [price, setPrice] = useState<string>('');
   const {
-    // takePhoto,
-    // pictures,
+    pictures,
     deletePicture,
     pickPictures,
   } = usePhotoGallery();
@@ -30,10 +35,6 @@ const Create = () => {
 
   const createCard = async (event: FormEvent<Element>) => {
     event.preventDefault();
-    const data = new FormData(event.target as HTMLFormElement);
-    const name = data.get('name');
-    const description = data.get('description');
-    const price = data.get('price');
     // Generating id coz we can have the same name, description and price
     // so we can't use it as an id
     const uid = await fetchRandomUUID();
@@ -50,6 +51,7 @@ const Create = () => {
           description,
           price,
           id: uid,
+          images: pictures,
         },
         ...existingFeed
       ]),
@@ -69,8 +71,24 @@ const Create = () => {
               label="Name:"
               labelPlacement="floating"
               name="name"
+              value={name}
+              type="text"
+              onIonInput={(e) => setName(e.target.value as string)}
               required
             />
+          </IonItem>
+          <IonItem>
+            <IonGrid>
+              <IonRow>
+                {
+                  pictures.map((picture) => (
+                    <IonCol size="3" key={picture.webviewPath}>
+                      <IonImg src={picture.webviewPath} onClick={() => setPhotoToDelete(picture)} />
+                    </IonCol>
+                  ))
+                }
+              </IonRow>
+            </IonGrid>
           </IonItem>
           <IonButton onClick={pickPictures}>
             <IonIcon icon={images} size="medium" />
@@ -81,6 +99,8 @@ const Create = () => {
               name="description"
               label="Description:"
               labelPlacement="floating"
+              value={description}
+              onIonInput={(e) => setDescription(e.target.value as string)}
             />
           </IonItem>
           <IonItem>
@@ -89,7 +109,8 @@ const Create = () => {
               label="Price:"
               labelPlacement="floating"
               type="number"
-              fill="outline"
+              value={price}
+              onIonInput={(e) => setPrice(e.target.value as string)}
               required
             />
           </IonItem>

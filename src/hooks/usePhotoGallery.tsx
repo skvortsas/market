@@ -4,37 +4,32 @@ import { isPlatform } from '@ionic/react';
 import { Camera, CameraResultType, CameraSource, Photo } from '@capacitor/camera';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Capacitor } from '@capacitor/core';
-
-export interface UserPhoto {
-  filepath: string;
-  webviewPath?: string;
-}
 export function usePhotoGallery() {
   const [pictures, setPictures] = useState<UserPhoto[]>([]);
 
   const savePicture = async (photo: Photo, fileName: string): Promise<UserPhoto> => {
-    // let base64Data: string | Blob;
-    // // "hybrid" will detect Cordova or Capacitor;
-    // if (isPlatform('hybrid')) {
-    //   const file = await Filesystem.readFile({
-    //     path: photo.webPath!,
-    //   });
-    //   base64Data = file.data;
-    // } else {
-    //   base64Data = await base64FromPath(photo.webPath!);
-    // }
-    // const savedFile = await Filesystem.writeFile({
-    //   path: fileName,
-    //   data: base64Data,
-    //   directory: Directory.Data,
-    // });
+    let base64Data: string | Blob;
+    // "hybrid" will detect Cordova or Capacitor;
+    if (isPlatform('hybrid')) {
+      const file = await Filesystem.readFile({
+        path: photo.webPath!,
+      });
+      base64Data = file.data;
+    } else {
+      base64Data = await base64FromPath(photo.webPath!);
+    }
+    const savedFile = await Filesystem.writeFile({
+      path: fileName,
+      data: base64Data,
+      directory: Directory.Data,
+    });
 
     if (isPlatform('hybrid')) {
       // Display the new image by rewriting the 'file://' path to HTTP
       // Details: https://ionicframework.com/docs/building/webview#file-protocol
       return {
-        filepath: photo.webPath!,
-        webviewPath: Capacitor.convertFileSrc(photo.webPath!),
+        filepath: savedFile.uri,
+        webviewPath: Capacitor.convertFileSrc(savedFile.uri),
       };
     } else {
       // Use webPath to display the new image instead of base64 since it's
