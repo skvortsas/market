@@ -1,36 +1,47 @@
 A marketplace application built with Next.js Ionic and Capacitor
 
-## Getting Started
+## Before start
 
-First, run the development server:
+Change url on the 8th line of `capacitor.config.ts` file for your local IP address 
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ yarn #to install dependencies
+ npx cap sync #to install dependencies for ios and android devices
+```
+---
+## Run application
+
+```bash
+ yarn dev #to run the application
+ npx cap run ios
+ #or
+ npx cap run android #to run the application on a device emulator
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Now you can open the application in browser of your laptop and in a device emulator of your choice.
+You can also open the application with your mobile browser by putting your local address from
+the 8th line of `capacitor.config.ts`.
+---
+## Notes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+feed/[item]/page.tsx was not included into final release because I couldn't use filesystem
+to generate static params, coz it's node.js environment.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The most optimal way to implement additional tasks is to use firebase DB and SDK.
+The firebase has convenient Google authentication, and it's non-relative db 
+would be the most optimal option to store such information as marketplace items and all the information
+about those items.
+Synchronization between devices would be implemented fairly easy with firebase db.
+The whole feed would be stored there and would be updated each time a user creates an item.
+Also with that the deletion and update of the created items could be implemented. Because now 
+we can track which item was created by current user to let them edit or delete it
+(the whole idea is that no one else can edit or delete items of others)
 
-## Learn More
+## Next steps
 
-To learn more about Next.js, take a look at the following resources:
+Implement everything from additional tasks which is described in notes above
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+As soon as we're using Next.js I would implement also a web application for desktop, 
+so we can use the whole potential of the SSR.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+A better design would be great)
