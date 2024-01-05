@@ -10,6 +10,7 @@ import {
   IonPage,
   IonToolbar,
   useIonViewDidEnter,
+  useIonViewWillLeave,
 } from '@ionic/react';
 import { useHistory } from 'react-router';
 import { validateCode } from '@/utils/security';
@@ -109,6 +110,10 @@ const CodeScanner = () => {
       push('/feed');
     }
   }, []);
+
+  useIonViewWillLeave(() => {
+    stopScan();
+  })
 
   return (
     <IonPage className="scanner-ui">
