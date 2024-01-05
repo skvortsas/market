@@ -8,10 +8,10 @@ import {
 } from '@ionic/react';
 import { addCircle, cameraOutline, list } from 'ionicons/icons';
 
-import Feed from './Feed';
-import Create from './Create';
-import FeedItem from './FeedItem';
-import Scanner from './CodeScanner';
+import Feed from '@/feed';
+import Create from '@/create/Create';
+import FeedItem from '@/feed/item';
+import Scanner from '@/scanner/CodeScanner';
 
 const Tabs = () => {
   return (

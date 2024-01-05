@@ -212,3 +212,9 @@ body.scanner-active > div {
   height: 60% !important;
   top: 20% !important;
 }
+
+h1 {
+  font-size: 3rem;
+  text-align: center;
+  font-weight: bold;
+}
